@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LoungeOwners::RegistrationsController < Devise::RegistrationsController
+  include RackSessionFix
   respond_to :json
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -60,4 +61,17 @@ class LoungeOwners::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  # 
+  private
+
+  def respond_with(resource, _opts = {})
+    if resource.persisted?
+      render json: { 
+        message: 'Signed up successfully',
+        status: :created,
+        data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes] }
+    else
+      render json: { errors: resource.errors.full_messages.to_sentence }, status: :unprocessable_entity
+    end
+  end
 end
