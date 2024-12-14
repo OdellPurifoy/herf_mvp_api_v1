@@ -61,15 +61,16 @@ class LoungeOwners::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  # 
+  #
   private
 
   def respond_with(resource, _opts = {})
     if resource.persisted?
-      render json: { 
+      render json: {
         message: 'Signed up successfully',
         status: :created,
-        data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes] }
+        data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes]
+      }
     elsif request.method == 'DELETE'
       render json: { message: 'Account deleted successfully', status: :ok }
     else

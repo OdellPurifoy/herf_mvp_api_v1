@@ -27,25 +27,25 @@ class LoungeOwners::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  # 
+  #
   private
 
   def respond_with(resource, _opts = {})
-    render json: { 
+    render json: {
       message: 'Logged in successfully',
       status: :ok,
-      data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes] 
+      data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes]
     }
   end
 
   def respond_to_on_destroy
     if current_lounge_owner
-      render json: { 
+      render json: {
         message: 'Logged out successfully',
         status: :ok
       }
     else
-      render json: { 
+      render json: {
         message: 'No active session',
         status: :unprocessable_entity
       }
