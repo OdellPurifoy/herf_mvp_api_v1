@@ -68,9 +68,8 @@ class LoungeOwners::RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       render json: {
         message: 'Signed up successfully',
-        status: :created,
         data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes]
-      }
+      }, status: :created
     elsif request.method == 'DELETE'
       render json: { message: 'Account deleted successfully', status: :ok }
     else
