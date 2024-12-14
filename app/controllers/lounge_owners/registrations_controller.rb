@@ -70,6 +70,8 @@ class LoungeOwners::RegistrationsController < Devise::RegistrationsController
         message: 'Signed up successfully',
         status: :created,
         data: LoungeOwnerSerializer.new(resource).serializable_hash[:data][:attributes] }
+    elsif request.method == 'DELETE'
+      render json: { message: 'Account deleted successfully', status: :ok }
     else
       render json: { errors: resource.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
