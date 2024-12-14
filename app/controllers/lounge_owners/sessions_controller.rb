@@ -42,13 +42,12 @@ class LoungeOwners::SessionsController < Devise::SessionsController
     if current_lounge_owner
       render json: {
         message: 'Logged out successfully',
-        status: :ok
+        status: :unprocessable_content
       }
     else
       render json: {
-        message: 'No active session',
-        status: :unprocessable_entity
-      }
+        message: 'No active session'
+      }, status: :unprocessable_entity
     end
   end
 end
