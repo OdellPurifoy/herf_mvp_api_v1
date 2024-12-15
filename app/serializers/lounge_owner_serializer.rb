@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LoungeOwnerSerializer
   include JSONAPI::Serializer
   attributes :id, :email, :created_at
